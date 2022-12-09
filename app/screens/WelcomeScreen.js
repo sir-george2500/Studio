@@ -10,6 +10,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Constants from "expo-constants";
 import colors from '../config/colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AppButton from '../components/AppButton';
 
 function WelcomeScreen(){
 
@@ -20,8 +22,23 @@ function WelcomeScreen(){
               source={require('../assets/welcome.png')}
           />
     <View  style={styles.container}>
-      <Text>WelcomeScreen</Text>
+      <Text style={styles.styleText_1}>Welcome To the Creator Studio</Text>
+      <View  style={styles.styleText_2}>
+      <Text style={styles.styleText}>Let go make you a Star</Text>
+      <View style={styles.star}>
+      <MaterialCommunityIcons name="star-shooting" size={24} color="black" />
+      </View>
+      </View>
     </View>
+
+    <View style={styles.buttonsContainer}>
+        <AppButton title="Login" 
+        color="black" 
+        textColor="primary" 
+        elevation={10}
+         />
+        <AppButton title="Register" color="transparent" textColor="black" borderColor="black"  />
+      </View>
     </SafeAreaView>
   )
 }
@@ -36,8 +53,8 @@ const styles = StyleSheet.create({
       },    
       container: {
         padding:5, 
-        backgroundColor:colors.primary,
-        flex:1,
+        justifyContent:"center",
+        alignItems:"center",
        },
        logo: {
         width: 300,
@@ -45,6 +62,27 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 50,
         marginBottom:20,
-    }
+    },
+    styleText:{
+     fontSize:16,
+    },
+    styleText_1:{
+        fontSize:22,
+        fontWeight:"bold"
+      },
+    styleText_2:{
+      flexDirection:"row",
+    },styleText_2:{
+      flexDirection:"row",
+    },
+    star:{
+      marginLeft:5,
+      top:-3,
+    },
+    buttonsContainer: {
+        top:50,
+        padding: 20,
+        width: "100%",
+      },
 
 })
