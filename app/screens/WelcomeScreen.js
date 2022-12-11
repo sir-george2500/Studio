@@ -12,8 +12,9 @@ import Constants from "expo-constants";
 import colors from '../config/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
+import routes from '../../navigation/routes';
 
-function WelcomeScreen(){
+function WelcomeScreen({navigation}){
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -36,8 +37,14 @@ function WelcomeScreen(){
         color="black" 
         textColor="primary" 
         elevation={10}
+        onPress={()=>navigation.navigate(routes.LOGIN)}
          />
-        <AppButton title="Register" color="transparent" textColor="black" borderColor="black"  />
+        <AppButton title="Register" 
+         color="transparent" 
+         textColor="black"
+         borderColor="black"  
+         onPress={()=>navigation.navigate(routes.REGISTER)}
+         />
       </View>
     </SafeAreaView>
   )
