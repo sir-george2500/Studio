@@ -12,8 +12,9 @@ import AuthNavigator from './navigation/AuthNavigation';
 
 export default function App() {
   return (
-  
-    <AppNavigation />
+   <NavigationContainer>
+     <AppNavigation />
+   </NavigationContainer>
  
 
   );

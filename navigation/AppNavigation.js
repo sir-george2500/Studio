@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Animated, Dimensions, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Plus...
@@ -24,9 +24,10 @@ import UploadScreen from '../app/screens/UploadScreen';
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = () => {
+    const navigation = useNavigation();
     const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
-    <NavigationContainer>
+    <>
     <Tab.Navigator screenOptions={{
       headerShown: false,
       tabBarActiveTintColor:colors.black,
@@ -56,8 +57,9 @@ const AppNavigation = () => {
 
         // Tab ICons....
       }
-      <Tab.Screen name={routes.DASHBOARD} component={DashboardScreen} options={{
+      <Tab.Screen name={routes.DASHBOARD} component={DashboardScreen}  options={{
         tabBarActiveTintColor:colors.brandColor,
+      
         tabBarIcon: ({ focused }) => (
           <View style={{
             // centring Tab Button...
@@ -113,32 +115,38 @@ tabBarActiveTintColor:colors.brandColor,
         // Extra Tab Screen For Action Button..
       }
 
-      <Tab.Screen name={"ActionButton"} component={UploadScreen} options={{
-        tabBarActiveTintColor:colors.brandColor,
-
-        tabBarIcon: ({ focused }) => (
-
-          <TouchableOpacity>
-            <View style={{
-              width: 90,
-              height: 90,
-              backgroundColor: colors.white,
-              borderRadius: 90*0.5,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderColor:colors.brandColor,
-              borderWidth:2,
-              marginBottom: Platform.OS == "android" ? 50 : 30
-            }}>
-              <Image source={plus} style={{
-                width: 22,
-                height: 22,
-                tintColor: colors.black,
-              }}></Image>
-            </View>
-          </TouchableOpacity>
-        )
-      }}></Tab.Screen>
+<Tab.Screen 
+  name={routes.UPLOAD_MUSIC}  
+  component={UploadScreen} 
+  options={{
+    tabBarActiveTintColor: colors.brandColor,
+    title:'',
+    tabBarIcon: ({ focused }) => (
+      <TouchableOpacity onPress={()=> navigation.navigate(routes.UPLOAD_MUSIC)}>
+        <View style={{
+          width: 90,
+          height: 90,
+          backgroundColor: colors.white,
+          borderRadius: 90*0.5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: colors.brandColor,
+          borderWidth:2,
+          marginBottom: Platform.OS == "android" ? 50 : 30
+        }}>
+          <Image 
+            source={plus} 
+            style={{
+              width: 22,
+              height: 22,
+              tintColor: colors.black,
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+    )
+  }}
+></Tab.Screen>
 
       <Tab.Screen name={"uploads"} component={ShowUploadScreen} options={{
         tabBarActiveTintColor:colors.brandColor,
@@ -206,8 +214,8 @@ tabBarActiveTintColor:colors.brandColor,
       ]
     }}>
 
-    </Animated.View>
-  </NavigationContainer>
+    </Animated.View> 
+ </>
 );
 }
 
@@ -221,45 +229,6 @@ width = width - 80
 return width / 5
 }
 
-function EmptyScreen() {
-return (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
-  </View>
-);
-}
-
-function SettingsScreen() {
-return (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Settings!</Text>
-  </View>
-);
-}
-
-function HomeScreen() {
-return (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Home!</Text>
-  </View>
-);
-}
-
-function NotificationScreen() {
-return (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Notifications!</Text>
-  </View>
-);
-}
-
-function SearchScreen() {
-return (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text>Search!</Text>
-  </View>
-);
-}
 
 const styles = StyleSheet.create({
 container: {

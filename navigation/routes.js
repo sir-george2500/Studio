@@ -4,5 +4,6 @@ export default Object.freeze({
     DASHBOARD:"Dashboard",
     STATS:"Stats",
     UPLOAD:"Upload",
-    MONETIZATION:"Monetization"
+    MONETIZATION:"Monetization",
+    UPLOAD_MUSIC:"Upload_Music"
   });
