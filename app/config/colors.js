@@ -9,5 +9,6 @@ export default {
     dark: "#0c0c0c",
   green: "#286e0a",
   brandColor:"#f2fd46",
+  nearDark:"#252424"
     
   };
