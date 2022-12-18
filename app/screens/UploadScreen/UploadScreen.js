@@ -1,19 +1,23 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import Screen from '../components/Screen'
-import NavigationHeader from '../components/NavigationHeader'
-import colors from '../config/colors'
+import Screen from '../../components/Screen'
+import NavigationHeader from '../../components/NavigationHeader'
+import colors from '../../config/colors'
 import { FontAwesome5 ,Ionicons ,FontAwesome } from '@expo/vector-icons'
-import Icon from '../components/Icon'
+import Icon from '../../components/Icon'
+import { useNavigation } from '@react-navigation/native'
+import routes from '../../../navigation/routes'
 
 
 export default function UploadScreen() {
+  const navigation = useNavigation();
+
   return (
     <Screen  Header={<NavigationHeader ScreenName="Upload Songs/Album"/>}>
       <View style={styles.container}>
      <Text style={styles.mainText}>Please Select Your Upload Type</Text>
      <View style={styles.list}>
-     <TouchableOpacity>
+     <TouchableOpacity onPress={()=>navigation.navigate(routes.ADD_SONG)}>
      <View style={[styles.song,{justifyContent:"center"}]}>
       <View style={styles.fontIcon}>
      <Icon name="music" size={42} iconColor={colors.brandColor}  />
@@ -22,16 +26,16 @@ export default function UploadScreen() {
      </View>
      </TouchableOpacity>
      {/* another Button start here */}
-     <TouchableOpacity>
+     <TouchableOpacity onPress={()=>navigation.navigate(routes.ADD_ALBUM)}>
      <View style={styles.song}>
       <View style={styles.fontIcon}>
       <Icon name="music-box-multiple" size={42} iconColor={colors.brandColor}/>
       <Text style={styles.uploadSong}>Album/EP</Text>
       </View>
      </View>
-     </TouchableOpacity>
+     </TouchableOpacity >
      {/* The third button */}
-     <TouchableOpacity>
+     <TouchableOpacity onPress={()=>navigation.navigate(routes.ADD_NONMUSICAL)}>
      <View style={styles.song}>
       <View style={styles.fontIcon}>
         <Icon name="surround-sound" size={42} iconColor={colors.brandColor} />

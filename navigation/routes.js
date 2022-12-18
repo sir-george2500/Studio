@@ -5,5 +5,8 @@ export default Object.freeze({
     STATS:"Stats",
     UPLOAD:"Upload",
     MONETIZATION:"Monetization",
-    UPLOAD_MUSIC:"Upload_Music"
+    UPLOAD_MUSIC:"Upload_Music",
+    ADD_SONG:"Upload Song",
+    ADD_ALBUM:"Upload Album",
+    ADD_NONMUSICAL:"Upload Others",
   });

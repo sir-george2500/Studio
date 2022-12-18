@@ -19,7 +19,8 @@ import ShowUploadScreen from '../app/screens/ShowUploadScreen';
 import Monetization from '../app/screens/MonetizationScreen';
 import StatisticsScreen from '../app/screens/StatisticsScreen';
 import MonetizationScreen from '../app/screens/MonetizationScreen';
-import UploadScreen from '../app/screens/UploadScreen';
+import UploadScreen from '../app/screens/UploadScreen/UploadScreen';
+import UploadNavigator from './UploadNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -117,7 +118,7 @@ tabBarActiveTintColor:colors.brandColor,
 
 <Tab.Screen 
   name={routes.UPLOAD_MUSIC}  
-  component={UploadScreen} 
+  component={UploadNavigator} 
   options={{
     tabBarActiveTintColor: colors.brandColor,
     title:'',
@@ -228,6 +229,8 @@ width = width - 80
 // Total five Tabs...
 return width / 5
 }
+
+
 
 
 const styles = StyleSheet.create({
