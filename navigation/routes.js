@@ -9,4 +9,5 @@ export default Object.freeze({
     ADD_SONG:"Upload Song",
     ADD_ALBUM:"Upload Album",
     ADD_NONMUSICAL:"Upload Others",
+    UPLOADSCREEN:"Upload Music",
   });

@@ -117,13 +117,13 @@ tabBarActiveTintColor:colors.brandColor,
       }
 
 <Tab.Screen 
-  name={routes.UPLOAD_MUSIC}  
+  name={routes.UPLOADSCREEN}  
   component={UploadNavigator} 
   options={{
     tabBarActiveTintColor: colors.brandColor,
     title:'',
     tabBarIcon: ({ focused }) => (
-      <TouchableOpacity onPress={()=> navigation.navigate(routes.UPLOAD_MUSIC)}>
+      <TouchableOpacity onPress={()=> navigation.navigate(routes.UPLOADSCREEN)}>
         <View style={{
           width: 90,
           height: 90,
