@@ -3,15 +3,27 @@ import React from 'react'
 import Screen from '../../components/Screen'
 import colors from '../../config/colors'
 import plus from '../../assets/plus.png';
-
+import * as DocumentPicker from 'expo-document-picker';
 export default function AddSong() {
+
+    async function selectAudioFile() {
+        try {
+          const audioFile = await DocumentPicker.getDocumentAsync({
+            type: 'audio/*',
+          });
+          console.log(audioFile);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
   return (
     <Screen style={{marginTop:-12}}>
         <View style={styles.headerView}>
         <Text style={styles.mainText}>Upload your music to Soundnix</Text>
         </View>
         <View  style={styles.uploadView}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={selectAudioFile}>
             <View style={styles.uploadButton}>
             <View style={styles.styleUploadButtonView}>
           <Image 
