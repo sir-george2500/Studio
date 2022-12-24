@@ -108,16 +108,12 @@ createUserWithEmailAndPassword(auth, email, password)
     setSumbitted(false)
     console.log(isError);
     console.log(errorMessage);
-    // ..
+   
   })}catch(err){
     console.log("Oops on un expected Error :", err)
   };
     
-    // auth.createUserWithEmailAndPassword(email, password)
-    //   .then(userDetails => {
-    //     // const user = userDetails;
-    //     // console.log(user.email);
-    //   }).catch(e => console.log(e));
+  
 
   }
 
@@ -136,7 +132,7 @@ createUserWithEmailAndPassword(auth, email, password)
 
  <ScrollView>      
      <>
-     <ActivityIndicator />
+     <ActivityIndicator  visible={Loading}/>
 <AppForm
         initialValues={{ name:'' ,email : '' , password :'' }}
         onSubmit={handleSubmit}

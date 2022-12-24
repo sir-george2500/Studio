@@ -29,7 +29,8 @@
     "react-redux": "^8.0.5",
     "victory-native": "^36.6.8",
     "yup": "^0.32.11",
-    "expo-document-picker": "~11.0.1"
+    "expo-document-picker": "~11.0.1",
+    "@react-native-async-storage/async-storage": "~1.17.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
