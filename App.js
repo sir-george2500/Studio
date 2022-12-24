@@ -13,7 +13,7 @@ import AuthNavigator from './navigation/AuthNavigation';
 export default function App() {
   return (
    <NavigationContainer>
-     <AppNavigation />
+     <AuthNavigator />
    </NavigationContainer>
  
 

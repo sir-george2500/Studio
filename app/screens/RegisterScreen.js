@@ -6,6 +6,9 @@ import AppFormField from '../components/forms/AppFormField';
 import SubmitButton from '../components/forms/SubmitButton';
 import AppForm from '../components/forms/AppForm';
 import { ScrollView } from 'react-native';
+import { app } from '../api/firebase';
+import { getAuth, createUserWithEmailAndPassword , sendEmailVerification } from "firebase/auth";
+import { getFirestore, setDoc , doc } from "firebase/firestore"
 import ActivityIndicator from '../components/ActivityIndicator';
 import Constants from "expo-constants";
 
@@ -28,8 +31,94 @@ function RegisterScreen() {
   const [displayError,setdisplayError] = useState('Error');
   const [Loading,setLoading] = useState(false);
 
-  const handleSubmit=()=>{
-    console.log("Hi")
+  const handleSubmit = async (values,{resetForm}) => {
+    // This function received the values from the form
+    // The line below extract the two fields from the values object.
+    const {name,email,password} = values;
+    setLoading(true);
+   
+    const [role,verification,monetz] = ["creator",false,false];
+  
+
+    const auth = getAuth(app);
+
+    try{
+createUserWithEmailAndPassword(auth, email, password)
+  .then((res) => {
+    // Signed in 
+    const uid = res.user.uid;
+
+    const data = {
+      id:uid,
+      email,
+      name,
+      role,
+      verification,
+      monetz,
+  };
+
+
+
+  const ref = doc(db, 'userDatabase',uid)
+
+  console.log(ref);
+  setDoc(ref, data)
+      .then(() => {
+
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+          // Email verification sent!
+          // ...
+
+          resetForm();
+   
+          setModalVisible(true);
+          setSumbitted(false);
+           // ...
+           setLoading(false);
+           
+               
+          console.log("Created New User Document Successfully Email was sent")
+        });
+         //reset the form and set the modal visible to true with will allow the modal to pup up
+  
+      
+      })
+      .catch((e) => console.log("Error" , e));
+    console.log(uid);
+  
+
+
+  }).catch((error) => {
+    //call the loader for me
+    setLoading(false);
+    //disable the submit
+    setSumbitted(true)
+    // the modal for me
+    setisError(true);
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    switch (errorCode){
+      case 'auth/email-already-in-use':
+        setdisplayError('This Email has been use already');
+        break
+    }
+    
+    setSumbitted(false)
+    console.log(isError);
+    console.log(errorMessage);
+    // ..
+  })}catch(err){
+    console.log("Oops on un expected Error :", err)
+  };
+    
+    // auth.createUserWithEmailAndPassword(email, password)
+    //   .then(userDetails => {
+    //     // const user = userDetails;
+    //     // console.log(user.email);
+    //   }).catch(e => console.log(e));
+
   }
 
   return (
