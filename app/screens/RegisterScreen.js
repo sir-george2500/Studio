@@ -18,7 +18,7 @@ import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
 
-
+const db = getFirestore(app)
 const validationSchema = Yup.object().shape({
     name: Yup.string().required().label("Name"),
     email: Yup.string().required().email().label("Email"),
