@@ -9,116 +9,78 @@ import { ScrollView } from 'react-native';
 import { app } from '../api/firebase';
 import { getAuth, createUserWithEmailAndPassword , sendEmailVerification } from "firebase/auth";
 import { getFirestore, setDoc , doc } from "firebase/firestore"
-import ActivityIndicator from '../components/ActivityIndicator';
-import Constants from "expo-constants";
-
-
-
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
+import ActivityIndicator from '../components/ActivityIndicator';
+import Constants from "expo-constants";
+import createNewUser from '../../auth/registerUser';
 
-const db = getFirestore(app)
+
+
+
+
 const validationSchema = Yup.object().shape({
     name: Yup.string().required().label("Name"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(4).label("Password"),
   });
+
+
+  
 function RegisterScreen() {
-  const [submitted,setSumbitted] = useState(false)
-  const [modalVisible,setModalVisible] = useState(false);
-  const [isError,setisError] = useState(false);
-  const [displayError,setdisplayError] = useState('Error');
-  const [Loading,setLoading] = useState(false);
 
-  const handleSubmit = async (values,{resetForm}) => {
-    // This function received the values from the form
-    // The line below extract the two fields from the values object.
-    const {name,email,password} = values;
-    setLoading(true);
-   
-    const [role,verification,monetz] = ["creator",false,false];
-  
-
-    const auth = getAuth(app);
-
-    try{
-createUserWithEmailAndPassword(auth, email, password)
-  .then((res) => {
-    // Signed in 
-    const uid = res.user.uid;
-
-    const data = {
-      id:uid,
-      email,
-      name,
-      role,
-      verification,
-      monetz,
-  };
+const [submitted,setSumbitted] = useState(false)
+const [modalVisible,setModalVisible] = useState(false);
+const [isError,setisError] = useState(false);
+const [displayError,setdisplayError] = useState('Error');
+const [Loading,setLoading] = useState(false);
 
 
+const handleSubmit = async (values, { resetForm }) => {
+  // This function received the values from the form
+  // The line below extract the two fields from the values object.
+  const { name, email, password } = values;
+  setLoading(true);
 
-  const ref = doc(db, 'userDatabase',uid)
+  const auth = getAuth(app);
+  try {
+    const result = await createNewUser(auth, name, email, password);
+    if (result === true) {
+      await sendEmailVerification(auth.currentUser);
+      resetForm();
+      setModalVisible(true);
+      setSumbitted(false);
+      setLoading(false);
+      console.log("Created New User Document Successfully Email was sent");
+    } else {
+     let error =  result.message
 
-  console.log(ref);
-  setDoc(ref, data)
-      .then(() => {
-
-        sendEmailVerification(auth.currentUser)
-        .then(() => {
-          // Email verification sent!
-          // ...
-
-          resetForm();
-   
-          setModalVisible(true);
-          setSumbitted(false);
-           // ...
-           setLoading(false);
-           
-               
-          console.log("Created New User Document Successfully Email was sent")
-        });
-         //reset the form and set the modal visible to true with will allow the modal to pup up
-  
-      
-      })
-      .catch((e) => console.log("Error" , e));
-    console.log(uid);
-  
-
-
-  }).catch((error) => {
-    //call the loader for me
-    setLoading(false);
-    //disable the submit
-    setSumbitted(true)
-    // the modal for me
-    setisError(true);
-    const errorCode = error.code;
-    const errorMessage = error.message;
-
-    switch (errorCode){
-      case 'auth/email-already-in-use':
-        setdisplayError('This Email has been use already');
-        break
+      switch (error) {
+        case 'auth/email-already-in-use':
+          handleError('This Email has been use already');
+          break;
+        default:
+          handleError('An error occurred');
+      }
     }
-    
-    setSumbitted(false)
-    console.log(isError);
-    console.log(errorMessage);
-   
-  })}catch(err){
-    console.log("Oops on un expected Error :", err)
-  };
-    
-  
-
+  } catch (err) {
+    console.log("Oops on un expected Error :", err);
   }
+};
+
+    function handleError(errorMessage) {
+      setisError(true);
+      setdisplayError(errorMessage);
+      setSumbitted(false);
+      setLoading(false);
+    }
+
 
   return (
-    <>
+  <>
+   
+  
 
     <Image
         style={styles.logo}
@@ -168,7 +130,7 @@ createUserWithEmailAndPassword(auth, email, password)
                  />
                 
               
-   <SubmitButton title="Enter" disable={submitted} />
+   <SubmitButton title="Register" disable={submitted} />
        </View>
     </AppForm>
     <Modal visible={modalVisible} animationType="slide">
@@ -203,28 +165,33 @@ createUserWithEmailAndPassword(auth, email, password)
 
 
 </>
-  )
+  );
 }
-export default RegisterScreen
-const styles = StyleSheet.create({
-  logo: {
-    width: 250,
-    height: 250,
-    alignSelf: 'center',
-    marginTop: 50,
-    marginBottom:20,
-},
-ViewModalStyle: {
-alignItems: 'center',
-flex: 1,
-justifyContent: 'center'
-},
-registerScreen:{
-paddingTop: Constants.statusBarHeight,
-},
 
-inputContainer:{
-paddingRight:10,
-paddingLeft:10,
-}
-});
+const styles = StyleSheet.create({
+
+    logo: {
+        width: 250,
+        height: 250,
+        alignSelf: 'center',
+        marginTop: 50,
+        marginBottom:20,
+    },
+   ViewModalStyle: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
+   },
+   registerScreen:{
+    paddingTop: Constants.statusBarHeight,
+   },
+
+   inputContainer:{
+    paddingRight:10,
+    paddingLeft:10,
+   }
+  });
+
+
+
+export default RegisterScreen;
