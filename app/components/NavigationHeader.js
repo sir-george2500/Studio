@@ -10,7 +10,7 @@ import Icon from './Icon';
 import AppButton from './AppButton';
 import ListItem from './ListItem';
 import ListItemSeperator from './ListItemSeperator';
-
+import logOut from '../../auth/logoutUser';
 export default function NavigationHeader({ScreenName}) {
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -18,7 +18,19 @@ export default function NavigationHeader({ScreenName}) {
     setTimeout(() => {
       setModalVisible(true);
     }, 1000);
+
+   
   }
+
+  const handleLogOut = async function (){
+    try {
+        await logOut();
+        return console.log("User Log Out successfully");
+    } catch (error) {
+       return  console.log("User was now about to Log Out")
+    }
+   }
+   
   return (
     <View style={styles.container}>
   <View style={styles.left}>
@@ -56,7 +68,7 @@ export default function NavigationHeader({ScreenName}) {
          <ListItem 
            IconComponent={<Icon name="logout"/>}
            title="Log Out"   
-            
+           onPress={handleLogOut}
          />
          
          </View>
