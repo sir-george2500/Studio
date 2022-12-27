@@ -7,6 +7,9 @@ import React ,{ useState}from 'react'
 import colors from '../config/colors'
 import { Ionicons } from '@expo/vector-icons';
 import Icon from './Icon';
+import AppButton from './AppButton';
+import ListItem from './ListItem';
+import ListItemSeperator from './ListItemSeperator';
 
 export default function NavigationHeader({ScreenName}) {
 
@@ -44,8 +47,26 @@ export default function NavigationHeader({ScreenName}) {
         visible={modalVisible}
       >
         <View style={styles.modalContent}>
-          <Text>Modal is visible!</Text>
-          <Button onPress={() => setModalVisible(false)} title="Close Modal" />
+         <View style={styles.modalView}>
+         <ListItem 
+           IconComponent={<Icon name="account"/>}
+           title="Edit Account"    
+         />
+         <ListItemSeperator bgColor={colors.light}/>
+         <ListItem 
+           IconComponent={<Icon name="logout"/>}
+           title="Log Out"   
+            
+         />
+         
+         </View>
+          <AppButton title="close"
+           style={styles.modalButton} 
+           color="white"
+           styleText={{color:colors.white,fontSize:16}}
+           onPress={() => setModalVisible(false)}
+           />
+      
         </View>
       </Modal>
     </View>
@@ -84,8 +105,28 @@ const styles = StyleSheet.create({
    },
 
    modalContent: {
+    marginTop:40,
+    height:350,
+    weight:300,
+    borderRadius:5,
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     padding: 20,
     margin: 20,
   },
+
+  modalButton:{
+    height:50,
+    backgroundColor:colors.black,
+  
+    borderRadius:5,
+  },
+  modalView:{
+    margin:15,
+    marginLeft:-2,
+    marginRight:-2,
+    height:170,
+    borderRadius:5,
+    backgroundColor:colors.black,
+    
+  }
 })

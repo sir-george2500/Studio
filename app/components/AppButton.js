@@ -5,7 +5,8 @@ import {
   Text
 } from 'react-native';
 import colors from '../config/colors';
-function AppButton({ title, onPress,color = "primary" , textColor ,borderColor,elevation=0,disable}) {
+function AppButton({ title, onPress,color = "primary" , 
+textColor ,borderColor,elevation=0,disable ,style,styleText}) {
     return (
       <TouchableOpacity
         style={[styles.button, {
@@ -13,10 +14,10 @@ function AppButton({ title, onPress,color = "primary" , textColor ,borderColor,e
           borderColor: colors[borderColor],
           borderWidth: 1,
           elevation:elevation,
-        }]}
+        },style]}
         disabled={disable}
         onPress={onPress} >
-        <Text style={[styles.text,{color:colors[textColor]}]}>{title}</Text>
+        <Text style={[styles.text,{color:colors[textColor]},styleText]}>{title}</Text>
       </TouchableOpacity>
     );
   }
