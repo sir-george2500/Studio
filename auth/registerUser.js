@@ -2,7 +2,9 @@ import { createUserWithEmailAndPassword , sendEmailVerification } from "firebase
 import { getFirestore, setDoc , doc } from "firebase/firestore"
 import { app } from "../app/api/firebase"; 
 
-
+  /* this module is charge with the responsiblity of registering the 
+  user to firebase */
+  
 const db = getFirestore(app)
 
  async function createNewUser(auth, name, email, password) {

@@ -7,7 +7,7 @@ import SubmitButton from '../components/forms/SubmitButton';
 import AppForm from '../components/forms/AppForm';
 import { ScrollView } from 'react-native';
 import { app } from '../api/firebase';
-import { getAuth, createUserWithEmailAndPassword , sendEmailVerification } from "firebase/auth";
+import { getAuth, sendEmailVerification } from "firebase/auth";
 import { getFirestore, setDoc , doc } from "firebase/firestore"
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
@@ -17,7 +17,7 @@ import Constants from "expo-constants";
 import createNewUser from '../../auth/registerUser';
 
 
-
+/**This modoule is charge with the responsibility of Recieving form import */
 
 
 const validationSchema = Yup.object().shape({

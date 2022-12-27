@@ -6,13 +6,15 @@ import SubmitButton from '../components/forms/SubmitButton';
 import AppForm from '../components/forms/AppForm';
 import { ScrollView } from 'react-native';
 import AppButton from '../components/AppButton';
-
+import { getAuth} from "firebase/auth";
+import { app } from '../api/firebase';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
 import ErrorMessage from '../components/forms/ErrorMessage';
 import ActivityIndicator from '../components/ActivityIndicator';
 import Constants from "expo-constants";
-
+import loginUser from '../../auth/loginUser';
+import { async } from '@firebase/util';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -20,19 +22,47 @@ const validationSchema = Yup.object().shape({
 });
 function LoginScreen(props) {
 
-//  const checkLogin = useSelector((state)=>state.login[state.login.length-1].LOGIN)
-//  const getError = useSelector((state)=>state.login[state.login.length-1].ERROR)
-
 const [submitted,setSumbitted] = useState(false)
 const [modalVisible,setModalVisible] = useState(false);
 const [isError,setisError] = useState(false);
 const [displayError,setdisplayError] = useState('Error');
 const [Loading,setLoading] = useState(false);
 
- const handleSubmit =() =>{
+ const handleSubmit = async (values,{ resetForm }) =>{
+  //This function is charge with the responsibility of recieving the User Input
+  const { email, password } = values;
+  setLoading(true);
+  const auth = getAuth(app);
+  try {
+    
+    const result = await loginUser(auth,email,password);
+
+   if(result === true){  
+    resetForm();
+     setLoading(false)
+   }
+
+   let error =  result.message
+   switch (error){
+    case 'auth/wrong-password':
+      handleError('Sorry the password is wrong');
+      break
+  }
+     
+  } catch (error) {
+    console.log("Oops on un expected Error :", err);
+  }
 
 
  }
+
+
+function handleError(errorMessage) {
+  setisError(true);
+  setdisplayError(errorMessage);
+  setSumbitted(false);
+  setLoading(false);
+}
   return (
     <>
     <ActivityIndicator  visible={Loading}/>
@@ -78,7 +108,10 @@ const [Loading,setLoading] = useState(false);
                  />
                 
               
-   <SubmitButton title="Login" disable={submitted} />
+   <SubmitButton 
+    title="Login"
+    disable={submitted}
+     />
        </View>
     </AppForm>
     

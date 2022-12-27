@@ -24,7 +24,7 @@ import UploadNavigator from './UploadNavigation';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigation = () => {
+const AppNavigator = () => {
     const navigation = useNavigation();
     const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
@@ -242,4 +242,5 @@ container: {
 },
 });
 
-export default AppNavigation
+
+export default AppNavigator;
