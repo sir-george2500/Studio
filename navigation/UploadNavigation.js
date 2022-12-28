@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import AddAlbum from "../app/screens/UploadScreen/AddAlbum";
 import Addother from "../app/screens/UploadScreen/Addother";
-import AddSong from "../app/screens/UploadScreen/AddSong";
+import AddSong from "../app/screens/UploadScreen/AddSong/AddSong";
 import UploadScreen from "../app/screens/UploadScreen/UploadScreen";
 import routes from "./routes";
 
