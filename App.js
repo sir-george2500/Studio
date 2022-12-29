@@ -1,7 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import ImageInput from './app/components/ImageInput';
 import NavigationHeader from './app/components/NavigationHeader';
 import Screen from './app/components/Screen';
 import LoginScreen from './app/screens/LoginScreen';
@@ -14,8 +16,15 @@ import Provider from './navigation/Provider/Provider';
 
 
 export default function App() {
+  const [selectedImageURI, setSelectedImageURI] = useState(null);
+
+  const onChangeImage = (uri) => {
+    setSelectedImageURI(uri);
+  };
   return (
-   <Provider />
+  //  <Provider />
+  
+  <ImageInput imageUri={selectedImageURI} onChangeImage={onChangeImage} />
   );
 }
 
