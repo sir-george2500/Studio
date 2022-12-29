@@ -11,12 +11,15 @@ import { getAuth, sendEmailVerification } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import Screen from '../../../components/Screen';
 import AppButton from '../../../components/AppButton';
+import * as Progress from 'react-native-progress';
+import LottieView from 'lottie-react-native';
 
 
 export default function AddSong() {
 
   //Bring Out the modal 
   const [modalVisible, setModalVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 // This Function handle the selection of the song
     async function selectAudioFile() {
 
@@ -63,8 +66,9 @@ async function uploadAudioFile(audioFile) {
  
 
   uploadTask.on('state_changed', (snapshot) => {
-    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log(`Upload is ${progress}% done`);
+    let   progressTrack = (snapshot.bytesTransferred / snapshot.totalBytes)
+       setProgress(progressTrack);
+    console.log(`Upload is ${progressTrack}% done`);
   }, (error) => {
     // Handle upload error
     console.log(error);
@@ -105,7 +109,19 @@ async function uploadAudioFile(audioFile) {
         visible={modalVisible}
       >
         <View style={styles.modalContent}>
-         <View style={styles.modalView}>  
+         <View style={styles.modalView}>
+          {progress<1 ?
+          (
+            <Progress.Bar progress={progress} color={colors.brandColor}/>
+          ):(
+        <LottieView 
+        autoPlay
+        loop={false}
+        source={require('../../../assets/animations/done.json')}
+        />
+          )
+          
+          }
          </View>
           <AppButton title="close"
            style={styles.modalButton} 
@@ -183,6 +199,8 @@ const styles = StyleSheet.create({
     height:170,
     borderRadius:5,
     backgroundColor:colors.black,
+    alignItems:"center",
+    justifyContent:"center",
     
   }
     
