@@ -11,7 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import colors from "../config/colors";
 
-function ImageInput({ imageUri, onChangeImage }) {
+function ImageInput({ imageUri, onChangeImage ,iconName ="camera" }) {
   // useEffect(() => {
   //   requestPermission();
   // }, []);
@@ -49,7 +49,7 @@ function ImageInput({ imageUri, onChangeImage }) {
         {!imageUri && (
           <MaterialCommunityIcons
             color={colors.medium}
-            name="camera"
+            name={iconName}
             size={40}
           />
         )}

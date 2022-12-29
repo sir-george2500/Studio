@@ -16,15 +16,10 @@ import Provider from './navigation/Provider/Provider';
 
 
 export default function App() {
-  const [selectedImageURI, setSelectedImageURI] = useState(null);
-
-  const onChangeImage = (uri) => {
-    setSelectedImageURI(uri);
-  };
+ 
   return (
-  //  <Provider />
-  
-  <ImageInput imageUri={selectedImageURI} onChangeImage={onChangeImage} />
+   <Provider />
+ // <ImageInput imageUri={selectedImageURI} onChangeImage={onChangeImage} />
   );
 }
 
