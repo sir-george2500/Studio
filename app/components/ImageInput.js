@@ -48,7 +48,7 @@ function ImageInput({ imageUri, onChangeImage ,iconName ="camera" }) {
       <View style={styles.container}>
         {!imageUri && (
           <MaterialCommunityIcons
-            color={colors.medium}
+            color={colors.black}
             name={iconName}
             size={40}
           />

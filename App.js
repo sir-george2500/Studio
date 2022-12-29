@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ImageInput from './app/components/ImageInput';
 import NavigationHeader from './app/components/NavigationHeader';
+import AppPicker from './app/components/Picker';
 import Screen from './app/components/Screen';
 import LoginScreen from './app/screens/LoginScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
@@ -18,7 +19,13 @@ import Provider from './navigation/Provider/Provider';
 export default function App() {
  
   return (
-   <Provider />
+ //  <Provider />
+ <Screen>
+   <View style={{height:50,width:'80%'}}>
+
+   <AppPicker  placeholder="Category" icon="apps"/>
+   </View>
+ </Screen>
  // <ImageInput imageUri={selectedImageURI} onChangeImage={onChangeImage} />
   );
 }
