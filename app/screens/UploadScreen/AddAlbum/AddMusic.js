@@ -10,6 +10,8 @@ export default function AddMusic(props) {
     props.next(values)
     }
   return (
+    <View style={styles.form}>
+
     <AppForm  
    initialValues={props.data}
    onSubmit={handleSubmit}
@@ -38,7 +40,14 @@ export default function AddMusic(props) {
              />
      <SubmitButton title="Next" />
    </AppForm>
+    </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  form:{
+    height:300,
+    width:300,
+    margin:20,
+  }
+})

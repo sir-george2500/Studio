@@ -4,6 +4,7 @@ import AppTextInput from '../AppTextInput';
 import ErrorMessage from './ErrorMessage';
 import {useFormikContext} from 'formik'
 import { TextInput } from 'react-native-paper';
+import colors from '../../config/colors';
 
 
 
@@ -24,9 +25,12 @@ function AppFormField({ name ,paperInput=false, ...otherProps }) {
       (
         <TextInput
         onBlur={() => setFieldTouched(name)}
+        mode="outlined"
         onChangeText={text => setFieldValue(name, text)}
         value={values[name]}
         {...otherProps}
+       
+        
       />
       )
       :
