@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Modal,
-  Button,
   FlatList,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,6 +13,7 @@ import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
 import colors from "../config/colors";
+import { Button } from "react-native-paper";
 
 function AppPicker({
   icon,
@@ -34,7 +34,7 @@ function AppPicker({
           {icon && (
             <MaterialCommunityIcons
               name={icon}
-              size={20}
+              size={18}
               color={defaultStyles.colors.medium}
               style={styles.icon}
             />
@@ -47,14 +47,15 @@ function AppPicker({
 
           <MaterialCommunityIcons
             name="chevron-down"
-            size={20}
+            size={18}
             color={defaultStyles.colors.medium}
           />
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
+          {/* <Button title="Close" onPress={() => setModalVisible(false)} /> */}
+          <Button textColor={colors.danger}onPress={() => setModalVisible(false)}>Close</Button>
           <FlatList
             data={items}
             keyExtractor={(item) => item.value.toString()}
@@ -81,9 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 15,
     flexDirection: "row",
-    padding: 10,
+    padding: 5,
     marginVertical: 10,
-    height:50,
+    height:45,
     paddingTop:13,
     justifyContent:"center",
   },
@@ -93,14 +94,15 @@ const styles = StyleSheet.create({
   placeholder: {
     color: defaultStyles.colors.black,
     flex: 1,
-    marginTop:-10,
-    fontSize:16
+    marginTop:-12,
+    fontSize:13.2,
   },
   text: {
     flex: 1,
     color:colors.black,
     marginTop:-10,
-    fontSize:16
+    fontSize:14,
+    
   },
 });
 
