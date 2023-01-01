@@ -3,10 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import AppTextInput from '../AppTextInput';
 import ErrorMessage from './ErrorMessage';
 import {useFormikContext} from 'formik'
+import { TextInput } from 'react-native-paper';
 
 
 
-function AppFormField({ name , ...otherProps }) {
+function AppFormField({ name ,paperInput=false, ...otherProps }) {
   
   const {
     setFieldTouched,
@@ -18,14 +19,29 @@ function AppFormField({ name , ...otherProps }) {
   return (
    
     <>
-    
-      <AppTextInput
+    {
+      paperInput ?
+      (
+        <TextInput
+        onBlur={() => setFieldTouched(name)}
+        onChangeText={text => setFieldValue(name, text)}
+        value={values[name]}
+        {...otherProps}
+      />
+      )
+      :
+      (
+        <AppTextInput
         onBlur={() => setFieldTouched(name)}
         onChangeText={text =>setFieldValue(name,text)}
         value = {values[name]}
-              {...otherProps}
+              {...otherProps}  
+               />
+      )
+    }
+      
 
-                      />
+                    
         <ErrorMessage error={errors[name]} touch={touched[name]} />
         
       

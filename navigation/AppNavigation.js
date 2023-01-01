@@ -33,14 +33,15 @@ const AppNavigator = () => {
       headerShown: false,
       tabBarActiveTintColor:colors.black,
       // Floating Tab Bar...
+
+      tabBarHideOnKeyboard:true,
       tabBarStyle: {
         backgroundColor: colors.dark,
         position: 'absolute',
         bottom: 0,
         marginHorizontal: 0,
         // Max Height...
-        height: 60,
-      
+        height: 60,     
         // Shadow...
         shadowColor: '#000',
         shadowOpacity: 0.06,
@@ -53,11 +54,7 @@ const AppNavigator = () => {
       }
     }}>
 
-      {
-        // Tab Screens....
-
-        // Tab ICons....
-      }
+    
       <Tab.Screen name={routes.DASHBOARD} component={DashboardScreen}  options={{
         tabBarActiveTintColor:colors.brandColor,
       

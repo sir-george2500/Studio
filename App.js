@@ -3,6 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import AppTextInput from './app/components/AppTextInput';
+import AppForm from './app/components/forms/AppForm';
+import AppFormField from './app/components/forms/AppFormField';
+import AppFormImagePicker from './app/components/forms/AppFormImagePicker';
 import ImageInput from './app/components/ImageInput';
 import NavigationHeader from './app/components/NavigationHeader';
 import AppPicker from './app/components/Picker';
@@ -14,19 +18,14 @@ import AppNavigation from './navigation/AppNavigation';
 import AuthNavigator from './navigation/AuthNavigation';
 import AuthRoute from './navigation/Provider/AuthRoute';
 import Provider from './navigation/Provider/Provider';
-
+import * as Yup from 'yup'
+import SubmitButton from './app/components/forms/SubmitButton';
 
 export default function App() {
  
   return (
- //  <Provider />
- <Screen>
-   <View style={{height:50,width:'80%'}}>
-
-   <AppPicker  placeholder="Category" icon="apps"/>
-   </View>
- </Screen>
- // <ImageInput imageUri={selectedImageURI} onChangeImage={onChangeImage} />
+    <Provider/>
+ 
   );
 }
 
