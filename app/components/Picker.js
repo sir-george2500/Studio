@@ -13,6 +13,7 @@ import AppText from "./AppText";
 import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
+import colors from "../config/colors";
 
 function AppPicker({
   icon,
@@ -41,7 +42,7 @@ function AppPicker({
           {selectedItem ? (
             <AppText style={styles.text}>{selectedItem.label}</AppText>
           ) : (
-            <AppText style={styles.placeholder}>Placholder</AppText>
+            <AppText style={styles.placeholder}>{placeholder}</AppText>
           )}
 
           <MaterialCommunityIcons
@@ -97,6 +98,9 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    color:colors.black,
+    marginTop:-10,
+    fontSize:16
   },
 });
 
