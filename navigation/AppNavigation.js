@@ -122,8 +122,8 @@ tabBarActiveTintColor:colors.brandColor,
     tabBarIcon: ({ focused }) => (
       <TouchableOpacity onPress={()=> navigation.navigate(routes.UPLOADSCREEN)}>
         <View style={{
-          width: 90,
-          height: 90,
+          width: 75,
+          height: 75,
           backgroundColor: colors.white,
           borderRadius: 90*0.5,
           justifyContent: 'center',
@@ -132,14 +132,19 @@ tabBarActiveTintColor:colors.brandColor,
           borderWidth:2,
           marginBottom: Platform.OS == "android" ? 50 : 30
         }}>
-          <Image 
+          {/* <Image 
             source={plus} 
             style={{
-              width: 22,
-              height: 22,
+              width: 16,
+              height: 16,
               tintColor: colors.black,
             }}
-          />
+          /> */}
+           <FontAwesome5
+              name="upload"
+              size={20}
+              color={colors.black}
+            ></FontAwesome5>
         </View>
       </TouchableOpacity>
     )
@@ -198,7 +203,7 @@ tabBarActiveTintColor:colors.brandColor,
 
     </Tab.Navigator>
 
-    <Animated.View style={{
+    {/* <Animated.View style={{
       width: getWidth() - 20,
       height: 2,
       backgroundColor: colors.light,
@@ -213,6 +218,7 @@ tabBarActiveTintColor:colors.brandColor,
     }}>
 
     </Animated.View> 
+ </> */}
  </>
 );
 }

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, Touchable, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, Touchable, View } from 'react-native'
+import React, { useRef } from 'react'
 import AppForm from '../../../components/forms/AppForm';
 import AppFormImagePicker from '../../../components/forms/AppFormImagePicker';
 import AppFormField from '../../../components/forms/AppFormField';
@@ -10,14 +10,15 @@ import AppPicker from '../../../components/Picker';
 import AppFormPicker from '../../../components/forms/AppFormPicker';
 import { Button } from 'react-native-paper';
 
+
+
  function AlbumDetail(props) {
 
     //pass the handleNext the submited value from the props
     const handleSubmit =(values)=>{
     props.next(values)
     }
-
-
+    
 const categories = [
   {
     backgroundColor: "#fc5c65",
@@ -77,6 +78,8 @@ const categories = [
     
 
   return (
+    <ScrollView>
+
    <AppForm  
    initialValues={props.data}
    onSubmit={handleSubmit}
@@ -108,9 +111,10 @@ const categories = [
       placeholderTextColor={colors.medium}
       style={{backgroundColor:colors.black}}
       textColor={colors.light}
-      activeOutlineColor={colors.light}
+      activeOutlineColor={colors.light}    
             />
  
+     
     <AppFormPicker 
       items={categories}
       name="category"
@@ -131,6 +135,7 @@ const categories = [
    
      </View>
    </AppForm>
+    </ScrollView>
   )
 }
 
