@@ -6,15 +6,16 @@ import colors from '../../../config/colors';
 import AddMusic from './AddMusic';
 import AlbumDetail from './AlbumDetail';
 import FormStepper from '../../../components/Stepper';
+import AppText from '../../../components/AppText';
 
  function AddAlbum() {
-
+ //This is the form initial Data
   const [data,setData] = useState({
     name:'',
     email:'',
     password:'',
   })
-  const totalPages = 2;
+
   const [currentStep, setCurrentStep] = useState(0);
   
 
@@ -31,18 +32,22 @@ import FormStepper from '../../../components/Stepper';
      setData(prev =>({...prev,...nextData}));
      setCurrentStep(prev => prev - 1);
   }
+
+  //Array of Screens then we use the currentStep state to move through it 
   const steps = [
     {
       label: '1',
+      instuctUser:'Enter Album Details',
       component: <AlbumDetail next={handleNextSteps} data={data} />,
     },
     {
       label: '2',
       component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,
-    
+      instuctUser:'Enter Album Details',
     },
     {
       label: '3',
+      
       component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,
     
     },
@@ -55,7 +60,9 @@ import FormStepper from '../../../components/Stepper';
 
   return (
     <Screen>
-
+        <View style={{alignItems:'center'}}>
+          <AppText style={{color:colors.light}} >Step {steps[currentStep].label} : <Text style={{fontWeight:'bold'}}>{steps[currentStep].instuctUser}</Text></AppText>
+        </View>
        <FormStepper activeStep={currentStep} steps={steps} />
       {steps[currentStep].component}
     </Screen>
