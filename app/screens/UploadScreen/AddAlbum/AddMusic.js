@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import AppForm from '../../../components/forms/AppForm'
 import AppFormField from '../../../components/forms/AppFormField'
-import SubmitButton from '../../../components/forms/SubmitButton';
 import colors from '../../../config/colors';
 import { useFormikContext ,Formik } from "formik";
-import { Button } from 'react-native-paper';
+import MultiFormButton from '../../../components/MultiStepFormComponent/MultiFormButton';
+
 
 export default function AddMusic(props) {
   const handleSubmit =(values)=>{
@@ -28,8 +27,6 @@ export default function AddMusic(props) {
       KeyboardType="email-address"     
       placeholder="Email"
       textContentType="emailAddress"
-      paperInput = {true}
-      mode="outlined"
             />
  
     <AppFormField
@@ -43,19 +40,18 @@ export default function AddMusic(props) {
       textContentType="password"
              />
    <View style={styles.buttonView}>
-   <Button mode="contained" 
-    style={styles.button}
-    textColor={colors.black}
-    onPress={()=>props.prev(values)}
-    >
-   Back
-  </Button>
-   <Button mode="contained" 
-    style={[styles.button,{marginLeft:5}]}
-    textColor={colors.black}
-    onPress={handleSubmit}>
-    Next
-  </Button>
+   <MultiFormButton 
+   title="Back"
+   onPress={()=>props.prev(values)}
+   next={false}
+   
+   />
+    <MultiFormButton 
+   title="Back"
+   onPress={()=>props.prev(values)}
+   next={false}
+   style={{marginLeft:10}}
+   />
    </View>
       </>
   )} 

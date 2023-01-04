@@ -58,6 +58,7 @@ import AppText from '../../../components/AppText';
     }
   ]
 
+  console.log(data);
   return (
     <Screen>
         <View style={{alignItems:'center'}}>

@@ -20,12 +20,13 @@ import AuthRoute from './navigation/Provider/AuthRoute';
 import Provider from './navigation/Provider/Provider';
 import * as Yup from 'yup'
 import SubmitButton from './app/components/forms/SubmitButton';
+import MultFormButton from './app/components/MultiStepFormComponent/MultiFormButton';
 
 export default function App() {
  
   return (
     <Provider/>
- 
+   
   );
 }
 

@@ -9,6 +9,7 @@ import AppText from '../../../components/AppText';
 import AppPicker from '../../../components/Picker';
 import AppFormPicker from '../../../components/forms/AppFormPicker';
 import { Button } from 'react-native-paper';
+import MultFormButton from '../../../components/MultiStepFormComponent/MultiFormButton';
 
 
 
@@ -125,14 +126,9 @@ const categories = [
       icon="apps"
     />
    <View style={styles.buttonView}>
-   <Button mode="contained" 
-    style={styles.button}
-    textColor={colors.black}
-    onPress={handleSubmit}>
-    Next
-  </Button>
+    <MultFormButton title="Next" next={true}/>
    </View>
-   
+     
      </View>
    </AppForm>
     </ScrollView>
