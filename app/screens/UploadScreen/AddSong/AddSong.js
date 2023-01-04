@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableWithoutFeedback,
   } from 'react-native'
 import React, { useState } from 'react'
 import colors from '../../../config/colors'
-import plus from '../../../assets/plus.png';
+
 import * as DocumentPicker from 'expo-document-picker';
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable} from "firebase/storage";
@@ -13,6 +13,7 @@ import Screen from '../../../components/Screen';
 import AppButton from '../../../components/AppButton';
 import * as Progress from 'react-native-progress';
 import LottieView from 'lottie-react-native';
+import UploadSongButton from '../../../components/MultiStepFormComponent/UploadSongButton';
 
 
 export default function AddSong() {
@@ -87,22 +88,8 @@ async function uploadAudioFile(audioFile) {
         <Text style={styles.mainText}>Upload your music to Soundnix</Text>
         </View>
         <View  style={styles.uploadView}>
-        <TouchableWithoutFeedback onPress={selectAudioFile}>
-            <View style={styles.uploadButton}>
-            <View style={styles.styleUploadButtonView}>
-          <Image 
-            source={plus} 
-            style={{
-              width: 22,
-              height: 22,
-              tintColor: colors.black,
-            }}
-          />
-        </View>
-         <Text style={{color:colors.white,fontWeight:"bold"}}>Tab here and browse to your file</Text>
-            </View>
-        </TouchableWithoutFeedback>
-
+        
+        <UploadSongButton onPress={selectAudioFile}/>
         <Modal
         animationType="slide"
         transparent={true}
@@ -154,28 +141,6 @@ const styles = StyleSheet.create({
         alignItems:"center",
     }
     ,
-    uploadButton:{
-     width:300,
-     height:200,
-     marginTop:25,
-     borderWidth:2,
-     borderStyle:'dashed',
-     borderColor:colors.light,
-     justifyContent:"center",
-     alignItems:"center"
-    },
-  styleUploadButtonView:
-  {
-    width: 60,
-    height: 60,
-    backgroundColor: colors.brandColor,
-    borderRadius: 90*0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: colors.brandColor,
-    borderWidth:2,
-    marginBottom: Platform.OS == "android" ? 50 : 30
-  },
   
   modalContent: {
     marginTop:40,

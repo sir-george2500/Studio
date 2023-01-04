@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import AppFormField from '../../../components/forms/AppFormField'
 import colors from '../../../config/colors';
 import { useFormikContext ,Formik } from "formik";
 import MultiFormButton from '../../../components/MultiStepFormComponent/MultiFormButton';
+import UploadSongButton from '../../../components/MultiStepFormComponent/UploadSongButton';
 
 
 export default function AddMusic(props) {
@@ -12,6 +13,7 @@ export default function AddMusic(props) {
     }
   return (
     <View style={styles.form}>
+ <ScrollView>
 
 <Formik
       initialValues = {props.data}
@@ -20,25 +22,8 @@ export default function AddMusic(props) {
 >
   {({values}) => (
       <>
-      <AppFormField
-      autoCorrect={false}
-      name = "email"
-      icon="email"
-      KeyboardType="email-address"     
-      placeholder="Email"
-      textContentType="emailAddress"
-            />
- 
-    <AppFormField
-      autoCorrect={false}
-      name="password"
-      autoCapitalize="none"
-      icon="lock"
-      pass="eye"
-      KeyboardType="email-address"
-      placeholder="Password"
-      textContentType="password"
-             />
+      
+    <UploadSongButton />
    <View style={styles.buttonView}>
    <MultiFormButton 
    title="Back"
@@ -52,10 +37,12 @@ export default function AddMusic(props) {
    next={false}
    style={{marginLeft:10}}
    />
+   
    </View>
       </>
   )} 
 </Formik>
+ </ScrollView>
      
     </View>
   )
@@ -63,9 +50,9 @@ export default function AddMusic(props) {
 
 const styles = StyleSheet.create({
   form:{
-    height:300,
-    width:300,
+    
     margin:20,
+    marginTop:-13,
   },
 
   button:{
