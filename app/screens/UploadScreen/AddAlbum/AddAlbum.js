@@ -60,8 +60,8 @@ import AppText from '../../../components/AppText';
 
   console.log(data);
   return (
-    <Screen>
-        <View style={{alignItems:'center'}}>
+    <Screen  showHeader={false} >
+        <View style={{alignItems:'center',margin:-20}}>
           <AppText style={{color:colors.light}} >Step {steps[currentStep].label} : <Text style={{fontWeight:'bold'}}>{steps[currentStep].instuctUser}</Text></AppText>
         </View>
        <FormStepper activeStep={currentStep} steps={steps} />

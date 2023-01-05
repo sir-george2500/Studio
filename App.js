@@ -21,12 +21,12 @@ import Provider from './navigation/Provider/Provider';
 import * as Yup from 'yup'
 import SubmitButton from './app/components/forms/SubmitButton';
 import MultFormButton from './app/components/MultiStepFormComponent/MultiFormButton';
+import ShowUploadSong from './app/components/MultiStepFormComponent/ShowUploadSong';
 
 export default function App() {
  
   return (
     <Provider/>
-   
   );
 }
 
