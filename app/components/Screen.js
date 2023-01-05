@@ -5,12 +5,14 @@ import colors from '../config/colors';
 
 
 
-function Screen({ children, style ,Header }) {
+function Screen({ children, style ,Header,showHeader=true }) {
   return (
     <>
+    {showHeader&&(
     <View style={styles.top}>
     {Header}
     </View>
+    )}
     <SafeAreaView style={[styles.screen, style]}>
            
              <View style={[styles.view, style]}>{children}</View>
