@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
         color:colors.black,
     },
     container:{
-      marginLeft:10,
-      marginRight:10,
+      marginLeft:1,
+      marginRight:18,
       borderRadius:2,
       backgroundColor:colors.primary,
       borderColor:colors.white,

@@ -2,11 +2,11 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import AppFormField from '../../../components/forms/AppFormField'
 import colors from '../../../config/colors';
-import { useFormikContext ,Formik } from "formik";
+import {Formik } from "formik";
 import MultiFormButton from '../../../components/MultiStepFormComponent/MultiFormButton';
 import UploadSongButton from '../../../components/MultiStepFormComponent/UploadSongButton';
 import ListSong from '../../../components/MultiStepFormComponent/ListSong';
-
+import { Provider } from 'react-native-paper';
 
 export default function AddMusic(props) {
   const handleSubmit =(values)=>{
@@ -17,7 +17,8 @@ export default function AddMusic(props) {
       {name: 'Song 1', progress: 50},
       {name: 'Song 2', progress: 75},
       {name: 'Song 3', progress: 45},
-      
+      {name: 'Song 4', progress: 80},
+      {name: 'Song 5', progress: 45},
      
       ]
   return (
@@ -30,20 +31,23 @@ export default function AddMusic(props) {
      
 >
   {({values}) => (
-      <>
-    
-        
-    <UploadSongButton />
-    <ListSong songs={songs}  />
+      <>  
+     
+    <UploadSongButton width={300} height={150} marginT={-30}/>
+      
+
+    <View style={{marginTop:10}}>
+    <ListSong songs={songs}  />  
+    </View>
+     
       
    <View style={styles.buttonView}>
    <MultiFormButton 
    title="Back"
    onPress={()=>props.prev(values)}
    next={false}
-   
-   />
-    <MultiFormButton 
+    />
+  <MultiFormButton 
    title="Back"
    onPress={()=>props.prev(values)}
    next={false}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React,{useState} from 'react'
 import Screen from '../../../components/Screen'
 import ImageInput from '../../../components/ImageInput';
@@ -49,18 +49,17 @@ import AppText from '../../../components/AppText';
       label: '3',
       
       component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,
-    
     },
     {
       label:'4',
-      component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,
-    
+      component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,   
     }
   ]
 
   console.log(data);
   return (
     <Screen  showHeader={false} >
+     
         <View style={{alignItems:'center',margin:-20}}>
           <AppText style={{color:colors.light}} >Step {steps[currentStep].label} : <Text style={{fontWeight:'bold'}}>{steps[currentStep].instuctUser}</Text></AppText>
         </View>

@@ -1,40 +1,52 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import React from 'react';
-import ShowUploadSong from './ShowUploadSong';
-import ListItemSeperator from '../ListItemSeperator';
+import * as React from 'react';
+import { DataTable } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native'
+import ShowUploadSong from './ShowUploadSong'
+import ListItemSeperator from '../ListItemSeperator'
 
-const PAGE_SIZE = 4;
+const numberOfItemsPerPageList = [3];
 
-export default function ListSong({ songs = [], style }) {
+const ListSong = ({songs=[],style}) => {
   const [page, setPage] = React.useState(0);
-  const [data, setData] = React.useState([]);
+  const [numberOfItemsPerPage, onItemsPerPageChange] = React.useState(numberOfItemsPerPageList[0]);
+  const from = page * numberOfItemsPerPage;
+  const to = Math.min((page + 1) * numberOfItemsPerPage, songs.length);
 
   React.useEffect(() => {
-    setData(songs.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE));
-  }, [page, songs]);
+     setPage(0);
+  }, [numberOfItemsPerPage]);
 
-  console.log(data);
+  const songsForCurrentPage = songs.slice(from, to);
+
   return (
-    <FlatList
-      data={data}
-      renderItem={({ item }) => (
-        <>
-          <ShowUploadSong
-            key={item.name}
-            songName={item.name}
-            progress={item.progress}
-          />
-          <ListItemSeperator />
+    <View style={style}>
+      {songsForCurrentPage.map(song => (
+        <>    
+        <ShowUploadSong
+          key={song.name}
+          songName={song.name}
+          progress={song.progress}
+        />
+        <ListItemSeperator />
         </>
-      )}
-      onEndReached={() => {
-        if (data.length < songs.length) {
-          setPage(page + 1);
-        }
-      }}
-      onEndReachedThreshold={0.1}
-    />
-  );
+      ))}
+      <DataTable>
+        <DataTable.Pagination
+          page={page}
+          numberOfPages={Math.ceil(songs.length / numberOfItemsPerPage)}
+          onPageChange={page => setPage(page)}
+          label={`${from + 1}-${to} of ${songs.length}`}
+          showFastPaginationControls
+          numberOfItemsPerPageList={numberOfItemsPerPageList}
+          numberOfItemsPerPage={numberOfItemsPerPage}
+          onItemsPerPageChange={onItemsPerPageChange}
+          selectPageDropdownLabel={'Rows per page'}
+        />
+      </DataTable>
+    </View>
+  )
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
+
+export default ListSong;

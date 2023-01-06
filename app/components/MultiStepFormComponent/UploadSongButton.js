@@ -9,10 +9,19 @@ import React from 'react'
 import plus from '../../assets/plus.png';
 import colors from '../../config/colors';
 
-function UploadSongButton({onPress}) {
+function UploadSongButton({onPress,width=300,height=200,marginT}) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-    <View style={styles.uploadButton}>
+    <View style={{
+        width:width,
+        height:height,
+        marginTop:25,
+        borderWidth:2,
+        borderStyle:'dashed',
+        borderColor:colors.light,
+        justifyContent:"center",
+        alignItems:"center"
+       }}>
     <View style={styles.styleUploadButtonView}>
   <Image 
     source={plus} 
@@ -23,7 +32,7 @@ function UploadSongButton({onPress}) {
     }}
   />
 </View>
- <Text style={{color:colors.white,fontWeight:"bold"}}>Tab here and browse to your file</Text>
+ <Text style={{color:colors.white,fontWeight:"bold",marginTop:marginT}}>Tab here and browse to your file</Text>
     </View>
 </TouchableWithoutFeedback>
   )
@@ -31,16 +40,7 @@ function UploadSongButton({onPress}) {
 
 export default UploadSongButton;
 const styles = StyleSheet.create({
-    uploadButton:{
-        width:300,
-        height:200,
-        marginTop:25,
-        borderWidth:2,
-        borderStyle:'dashed',
-        borderColor:colors.light,
-        justifyContent:"center",
-        alignItems:"center"
-       },
+   
 
  styleUploadButtonView:
   {
