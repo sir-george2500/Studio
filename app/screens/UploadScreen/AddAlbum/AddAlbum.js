@@ -7,13 +7,16 @@ import AddMusic from './AddMusic';
 import AlbumDetail from './AlbumDetail';
 import FormStepper from '../../../components/Stepper';
 import AppText from '../../../components/AppText';
+import ReleaseAlbum from './ReleaseAlbum';
+
 
  function AddAlbum() {
  //This is the form initial Data
   const [data,setData] = useState({
-    name:'',
-    email:'',
-    password:'',
+    image:'',
+    artist:'',
+    albumName:'',
+    categories:null
   })
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -48,12 +51,9 @@ import AppText from '../../../components/AppText';
     {
       label: '3',
       
-      component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,
+      component:<ReleaseAlbum next={handleNextSteps} data={data} />,
     },
-    {
-      label:'4',
-      component: <AddMusic next={handleNextSteps} data={data} prev={handlePrevSteps} />,   
-    }
+   
   ]
 
   console.log(data);

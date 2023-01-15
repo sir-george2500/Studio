@@ -5,81 +5,33 @@ import { StyleSheet, Text, TouchableWithoutFeedback,
   } from 'react-native'
 import React, { useState } from 'react'
 import colors from '../../../config/colors'
-
-import * as DocumentPicker from 'expo-document-picker';
-import { getAuth, sendEmailVerification } from "firebase/auth";
-import { getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import Screen from '../../../components/Screen';
 import AppButton from '../../../components/AppButton';
 import * as Progress from 'react-native-progress';
 import LottieView from 'lottie-react-native';
 import UploadSongButton from '../../../components/MultiStepFormComponent/UploadSongButton';
+import  useSelectAudioFile  from '../../../hooks/useSelectAudioFile';
+import uploadAddSongFile from '../../../hooks/UploadSongHook/useUploadAudioFile';
+
 
 
 export default function AddSong() {
-
   //Bring Out the modal 
   const [modalVisible, setModalVisible] = useState(false);
   const [progress, setProgress] = useState(0);
-// This Function handle the selection of the song
-    async function selectAudioFile() {
-
-        try {
-          const audioFile = await DocumentPicker.getDocumentAsync({
-            type: 'audio/*',
-          });
-          
-
-         if( audioFile && audioFile.name){
-          
-          setModalVisible(true)
-           uploadAudioFile(audioFile) 
-        }else{
-          console.error('Invalid audio file');
-        } 
-         
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-// Function to handle file upload to firebase
-async function uploadAudioFile(audioFile) {
-  // Get the current user's id
-  const userId = getAuth().currentUser.uid;
-  console.log(userId);
-  
-  // Create a storage reference for the audio file
-  const storage = getStorage();
-  const storageRef = ref(storage, `userSongs/${userId}/${audioFile.name}`);
-
-  // Fetch the audio file data as a blob
-  const response = await fetch(audioFile.uri);
-  const blob = await response.blob();
-
-  // Create file metadata including the content type
-  const metadata = {
-    contentType: audioFile.type,
-  };
-
-  // Upload the file and metadata
-  const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
- 
-
-  uploadTask.on('state_changed', (snapshot) => {
-    let   progressTrack = (snapshot.bytesTransferred / snapshot.totalBytes)
-       setProgress(progressTrack);
-    console.log(`Upload is ${progressTrack}% done`);
-  }, (error) => {
-    // Handle upload error
-    console.log(error);
-  }, () => {
-    // Upload completed successfully
-    console.log('Upload completed successfully');
-  });
-
-
+// This Function handle the selection of the song  
+const  selectAudioFile = async function(){
+  const result = await useSelectAudioFile()
+  setModalVisible(result.modal);
+  uploadAudioFile(result.audioFile);   
 }
+
+
+const uploadAudioFile = async function(audioFile){
+  await uploadAddSongFile(audioFile ,setProgress);
+}
+
+
 
 
   return (

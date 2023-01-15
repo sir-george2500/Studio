@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {useFormikContext} from 'formik'
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ErrorMessage from "./ErrorMessage";
 import ImageInput from "../ImageInput";
 import AppText from "../AppText";
+
 
 function AppFormImagePicker({ name }) {
   // Use the useFormikContext hook to access the errors and touched objects from the Formik form
@@ -34,8 +35,10 @@ function AppFormImagePicker({ name }) {
   
   return (
     <>
-      {/* Pass the selectedImageURI and onChangeImage function to the ImageInput component */}
+    <View>
       <ImageInput imageUri={imageUris}  onChangeImage={onChangeImage} iconName="music-note"/>
+    </View>
+      {/* Pass the selectedImageURI and onChangeImage function to the ImageInput component */}
       {/* Display an error message if the field has been touched and there is an error */}
       {errors[name] && (
         <AppText style={styles.error}>{errors[name]}</AppText>
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
   container: {},
   error: {
       color:"red",
+      fontSize:16,
   }
   
 });

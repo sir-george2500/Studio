@@ -10,72 +10,33 @@ import AppPicker from '../../../components/Picker';
 import AppFormPicker from '../../../components/forms/AppFormPicker';
 import { Button } from 'react-native-paper';
 import MultFormButton from '../../../components/MultiStepFormComponent/MultiFormButton';
+import {categories} from '../../../assets/categories';
+import * as Yup from "yup";
 
 
+const validationSchema = Yup.object().shape({
+  image: Yup
+  .mixed()
+  .test(
+    'fileType',
+    'Please upload a valid image file',
+    value => value && value.startsWith('file:')
+  )
+  .required('An image is required'),
+  artist: Yup.string().required().label("artist"),
+  albumName: Yup.string().required().label("albumName"),
+  category: Yup.object().required().nullable().label("Category")
+});
 
  function AlbumDetail(props) {
 
+   
     //pass the handleNext the submited value from the props
     const handleSubmit =(values)=>{
     props.next(values)
     }
     
-const categories = [
-  {
-    backgroundColor: "#fc5c65",
-    icon: "floor-lamp",
-    label: "Furniture",
-    value: 1,
-  },
-  {
-    backgroundColor: "#fd9644",
-    icon: "car",
-    label: "Cars",
-    value: 2,
-  },
-  {
-    backgroundColor: "#fed330",
-    icon: "camera",
-    label: "Cameras",
-    value: 3,
-  },
-  {
-    backgroundColor: "#26de81",
-    icon: "cards",
-    label: "Games",
-    value: 4,
-  },
-  {
-    backgroundColor: "#2bcbba",
-    icon: "shoe-heel",
-    label: "Clothing",
-    value: 5,
-  },
-  {
-    backgroundColor: "#45aaf2",
-    icon: "basketball",
-    label: "Sports",
-    value: 6,
-  },
-  {
-    backgroundColor: "#4b7bec",
-    icon: "headphones",
-    label: "Movies & Music",
-    value: 7,
-  },
-  {
-    backgroundColor: "#a55eea",
-    icon: "book-open-variant",
-    label: "Books",
-    value: 8,
-  },
-  {
-    backgroundColor: "#778ca3",
-    icon: "application",
-    label: "Other",
-    value: 9,
-  },
-];
+
     
 
   return (
@@ -84,6 +45,8 @@ const categories = [
    <AppForm  
    initialValues={props.data}
    onSubmit={handleSubmit}
+   validationSchema={validationSchema}
+   
    >
      <View style={styles.inputContainer}>
       <View style={{flexDirection:"row",alignItems:"center"}}>
@@ -127,8 +90,7 @@ const categories = [
     />
    <View style={styles.buttonView}>
     <MultFormButton title="Next" next={true}/>
-   </View>
-     
+   </View>   
      </View>
    </AppForm>
     </ScrollView>

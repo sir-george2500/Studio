@@ -3,6 +3,8 @@ import { useFormikContext } from "formik";
 
 import Picker from "../Picker";
 import ErrorMessage from "./ErrorMessage";
+import AppText from "../AppText";
+import { StyleSheet } from "react-native";
 
 function AppFormPicker({
   items,
@@ -15,6 +17,9 @@ function AppFormPicker({
 }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
 
+
+
+  console.log(touched[name])
   return (
     <>
       <Picker
@@ -27,9 +32,19 @@ function AppFormPicker({
         width={width}
         icon={icon}
       />
-      <ErrorMessage error={errors[name]} visible={touched[name]} />
+       {errors[name] && (
+        <AppText style={styles.error}>{errors[name]}</AppText>
+      )
+      }
     </>
   );
 }
 
 export default AppFormPicker;
+
+
+const styles = StyleSheet.create({
+  error:{
+    color:"red"
+  }
+})

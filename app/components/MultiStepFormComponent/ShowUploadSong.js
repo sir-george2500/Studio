@@ -8,7 +8,7 @@ import * as Progress from 'react-native-progress';
 export default function ShowUploadSong({songName , progress}) {
 
   return (
-    <View style={styles.container}>
+    <View  style={styles.container}>
      <View  style={styles.contentView}>
      <AppText style={styles.text} >{songName}</AppText>
      <View  style={styles.icon}>  
