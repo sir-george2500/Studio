@@ -25,8 +25,7 @@ const  selectAudioFile = async function(){
   setModalVisible(result.modal);
   uploadAudioFile(result.audioFile);   
 }
-
-
+//this function handle the uploading of Song 
 const uploadAudioFile = async function(audioFile){
   await uploadAddSongFile(audioFile ,setProgress);
 }

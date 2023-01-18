@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet,View,} from 'react-native'
+import React,{useState} from 'react'
 import AppFormField from '../../../components/forms/AppFormField'
 import colors from '../../../config/colors';
 import {Formik } from "formik";
@@ -8,21 +8,33 @@ import UploadSongButton from '../../../components/MultiStepFormComponent/UploadS
 import ListSong from '../../../components/MultiStepFormComponent/ListSong';
 import { Provider } from 'react-native-paper';
 import NextBackButton from '../../../components/MultiStepFormComponent/NextBackButton';
+import useSelectAudioFile from '../../../hooks/useSelectAudioFile';
+import useUploadAlbumFile from '../../../hooks/UploadSongHook/useUploadAlbum';
 
 export default function AddMusic(props) {
+   
+  const [songs, setSongs] = useState([]);
+  const [progress, setProgress] = useState(0);
 
   const handleSubmit =(values)=>{
     props.next(values)
-    
+    }
+     
+    const  selectAudioFile = async function(){
+      const result = await useSelectAudioFile() 
+      
+       uploadAlbum(result.audioFile)
+
+     
     }
 
-    const songs = [
-      {id: 1, name: 'Song 1', progress: 50},
-      {id: 2, name: 'Song 2', progress: 75},
-      {id: 3, name: 'Song 3', progress: 45},
-      {id: 4, name: 'Song 4', progress: 80},
-      {id: 5, name: 'Song 5', progress: 45},      
-        ]
+
+    const uploadAlbum = async function (audiofile){
+    const albumName = props.data.albumName;
+    await useUploadAlbumFile(audiofile,albumName,setProgress,setSongs);
+   }
+
+   console.log(progress);
       
      
   return (
@@ -36,14 +48,13 @@ export default function AddMusic(props) {
 >
   {({values}) => (
       <>      
-    <UploadSongButton width={300} height={150} marginT={-30}/>        
+    <UploadSongButton onPress={selectAudioFile} width={300} height={150} marginT={-30}/>        
     <View style={{marginTop:10}}>    
-    <ListSong songs={songs}  />  
+    {/* <ListSong songs={songs}  />   */}
     </View>
    
     <NextBackButton 
-    onPrevious = {()=>props.prev(values)}
-    
+    onPrevious = {()=>props.prev(values)}  
     /> 
       </>
   )} 
