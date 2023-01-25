@@ -1,27 +1,25 @@
 import * as DocumentPicker from 'expo-document-picker';
 
 
-export default  async function useSelectAudioFile() {
 
-    try {
-      const audioFile = await DocumentPicker.getDocumentAsync({
-        type: 'audio/*',
-      });
-      
+export default async function useSelectAudioFile() {
+  try {
+    const audioFile = await DocumentPicker.getDocumentAsync({
+      type: 'audio/*',
+    });
 
-     if( audioFile && audioFile.name){
+    if (audioFile && audioFile.name) {
+      // Use fetch to retrieve the audio file
       
-      let  result = {
-            modal:true,
-            audioFile:audioFile,
-          }
-       return result; 
-        
-    }else{
+      const result = {
+        modal: true,
+        audioFile,
+      };
+      return result;
+    } else {
       console.error('Invalid audio file');
-    } 
-     
-    } catch (error) {
-      console.log(error);
     }
+  } catch (error) {
+    console.log(error);
   }
+}
